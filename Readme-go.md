@@ -1,5 +1,7 @@
 # Readme gjo notes
-[youtube presentation](https://www.youtube.com/watch?v=nrmQH5SqraA)
+See [youtube presentation](https://www.youtube.com/watch?v=nrmQH5SqraA)
+Implementing Microservices Security Patterns & Protocols by Joe Grandja, Adib Saikali
+
 ## Overview
 * each application uses OpenID Connect Server for login
 * OpenID Connect Server has ui, code, db (dft h2) -- UAA
