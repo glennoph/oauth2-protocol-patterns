@@ -62,6 +62,7 @@ scim:
   users:
     - user1|password|user1@oauth2-flows.io|first1|last1|uaa.user,profile,email,authority-a,authority-b,authority-c
     - joe|password|joeg@oauth2-flows.io|Joe|G|uaa.user,profile,email,authority-a,authority-b,authority-c
+    - gjo|password|glennoph+uaa1.gmail.com|glenn|j|uaa.user,profile,email,authority-a,authority-b,authority-c
 
 jwt:
   token:
