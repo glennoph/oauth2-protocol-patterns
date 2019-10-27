@@ -1,6 +1,8 @@
 # Readme gjo notes
 See [youtube presentation](https://www.youtube.com/watch?v=nrmQH5SqraA)
-Implementing Microservices Security Patterns & Protocols by Joe Grandja, Adib Saikali
+* Implementing Microservices Security Patterns & Protocols by Joe Grandja, Adib Saikali
+
+Also https://www.youtube.com/watch?v=JnYIsvJY7gM&feature=youtu.be 
 
 ## Overview
 * each application uses OpenID Connect Server for login
