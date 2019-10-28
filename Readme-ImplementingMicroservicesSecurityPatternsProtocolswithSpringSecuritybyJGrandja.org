@@ -27,10 +27,11 @@ Implementing Microservices Security Patterns & Protocols by Joe Grandja
 
 - dependencies
 
-~~~
+
+#+BEGIN
  "org.springframework.boot:spring-boot-starter-security",
  "org.springframework.boot:spring-boot-starter-oauth2-client",
-~~~
+#+END
 
 - spring application :: ui-app 
 
@@ -39,6 +40,7 @@ Implementing Microservices Security Patterns & Protocols by Joe Grandja
 
 - application.yml 
 
+#+Begin
 spring:
   security:
     oauth2:
@@ -60,7 +62,7 @@ spring:
         provider:
           uaa:
             issuer-uri: http://localhost:8090/uaa/oauth/token
-
+#+end
 
 - Authorization Server :: uaa (from cloud foundary)
 
