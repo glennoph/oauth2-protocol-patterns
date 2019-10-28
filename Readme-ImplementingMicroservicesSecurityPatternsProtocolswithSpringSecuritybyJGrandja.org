@@ -1,0 +1,128 @@
+* Readme Overview
+See [youtube presentation](https://www.youtube.com/watch?v=v2J32nd0g24)
+Implementing Microservices Security Patterns & Protocols by Joe Grandja
+
+** Security Standards
+- OAuth 2.0 Authorization Framework
+- OpenID Connect Core 1.0
+- OpenID Connect Discovery
+- JSON Web Token (jwt)
+- JSON Web Signature (jws)
+- JSON Web Key (jwk)
+
+** Architecture
+- UI App (Client) :: front end app for microservices
+- UAA (Authorization Server) :: 
+- Microservice A :: called by ui app
+- Microservice B (client) :: called by ui app, calls microservice c
+- Microservice C
+
+** Roles
+- Resource Server :: service on network, eg web app or api
+- Resource Owner :: **person** that can provide access to protected resource
+- Client :: an **application** requesting to resource server
+- Authorization Server :: asks resource owner if allow access to resource server, issues access tokens
+
+** Spring security components
+
+- dependencies
+```
+  "org.springframework.boot:spring-boot-starter-security",
+  "org.springframework.boot:spring-boot-starter-oauth2-client",
+```
+
+- spring application :: ui-app 
+```
+@SpringBootApplication
+```
+
+- application.yml 
+```
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          login-client:
+            provider: uaa
+            client-id: login-client
+            client-secret: secret
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,email
+          client-a:
+            provider: uaa
+            client-id: client-a
+            client-secret: secret
+            redirect-uri: "{baseUrl}/flow-a"
+            scope: authority-a
+...
+        provider:
+          uaa:
+            issuer-uri: http://localhost:8090/uaa/oauth/token
+```
+
+- Authorization Server :: uaa (from cloud foundary)
+
+  - Cloud Foundary identity management system
+
+** Spring Security Steps
+
+1. Access ui-app page
+2. Authorization Server/uaa redirects to login page
+3. User authorizes used of protected information
+4. Authorization Code returned to application
+5. ui-app gets control
+
+** Tokens
+- credentials for resource server
+- use tokens instead of secret
+- issued by authorization server
+- enables sso
+
+- contains claims
+
+- signed
+- can expire (eg 30 minutes)
+- refresh token when expired
+- jwt :: (json web token) 
+*** jwt
+- header
+- body data - user claims
+  - sub :: who is making request
+  - aud :: clientid
+  - iss :: 
+  - exp :: expiration time
+  - scope :: allowed requests
+- footer - payload :: signature of the token
+
+** oauth flow 1 - Authorization Code Grant
+- common
+Authorization Code Flow
+1. User accesses web page via browser
+2. application sees that there is no Authorization Token, so redirect to Authorization Server
+3. Authorization Server: show login page
+4. User enters secret to login page
+5. Authorization Server: show consent page
+6. User responds to consent page (what data can be shared)
+7. Authorization Server: returns code to User (agent)
+8. User agent exchanges code for token
+9. User able to access secured page w/ token
+
+** oauth flow 2 - Implicit Grant
+simplified flow
+- do not return access code, just token fragment
+- no refresh tokens provided
+- when token expires then user must login again
+
+
+
+** oauth flow 3 - Hybrid
+combination of Authorization code and Implicit
+
+** OpenId Connect Extras
+- ID token (scope openid)
+- Additional user info (scopes, email, phone, ...)
+- Identity endpoint :: get token
+- Userinfo endpoint :: get additional user info
+- Discovery :: 
+  - well known url, every resource server uses

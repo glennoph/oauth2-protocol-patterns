@@ -1,0 +1,67 @@
+* Readme Overview
+See [youtube presentation](https://www.youtube.com/watch?v=nrmQH5SqraA)
+Implementing Microservices Security Patterns & Protocols by Joe Grandja, Adib Saikali
+
+
+
+
+** Cast
+- Resource Server :: service on network, eg web app or api
+- Resource Owner :: **person** that can provide access to protected resource
+- Client :: an **application** requesting to resource server
+- Authorization Server :: asks resource owner if allow access to resource server, issues access tokens
+
+** Tokens
+- credentials for resource server
+- use tokens instead of secret
+- issued by authorization server
+- enables sso
+
+- contains claims
+
+- signed
+- can expire (eg 30 minutes)
+- refresh token when expired
+- jwt :: (json web token) 
+*** jwt
+- header
+- body data - user claims
+  - sub :: who is making request
+  - aud :: clientid
+  - iss :: 
+  - exp :: expiration time
+  - scope :: allowed requests
+- footer - payload :: signature of the token
+
+** oauth flow 1 - Authorization Code Grant
+- common
+Authorization Code Flow
+1. User accesses web page via browser
+2. application sees that there is no Authorization Token, so redirect to Authorization Server
+3. Authorization Server: show login page
+4. User enters secret to login page
+5. Authorization Server: show consent page
+6. User responds to consent page (what data can be shared)
+7. Authorization Server: returns code to User (agent)
+8. User agent exchanges code for token
+9. User able to access secured page w/ token
+
+** oauth flow 2 - Implicit Grant
+simplified flow
+- do not return access code, just token fragment
+- no refresh tokens provided
+- when token expires then user must login again
+
+
+
+** oauth flow 3 - Hybrid
+combination of Authorization code and Implicit
+
+** OpenId Connect Extras
+- ID token (scope openid)
+- Additional user info (scopes, email, phone, ...)
+- Identity endpoint :: get token
+- Userinfo endpoint :: get additional user info
+- Discovery :: 
+  - well known url, every resource server uses
+  - 
