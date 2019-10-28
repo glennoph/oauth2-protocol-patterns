@@ -25,4 +25,6 @@ atlassian-ide-plugin.xml
 uaa-server/*.war
 uaa-server/*.log
 
+gs-rest-service.iml
+
 *~
